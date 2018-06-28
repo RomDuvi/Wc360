@@ -1,0 +1,5 @@
+C:\Projects\Wc360
+--output-path=obj\Release\netcoreapp2.0\
+--application-name=WC360
+--content-root=C:\Projects\Wc360
+--file=

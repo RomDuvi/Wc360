@@ -1,0 +1,11 @@
+C:\Projects\WC360\bin\Debug\netcoreapp2.0\WC360.deps.json
+C:\Projects\WC360\bin\Debug\netcoreapp2.0\WC360.runtimeconfig.json
+C:\Projects\WC360\bin\Debug\netcoreapp2.0\WC360.runtimeconfig.dev.json
+C:\Projects\WC360\bin\Debug\netcoreapp2.0\WC360.dll
+C:\Projects\WC360\bin\Debug\netcoreapp2.0\WC360.pdb
+C:\Projects\WC360\obj\Debug\netcoreapp2.0\WC360.csproj.CoreCompileInputs.cache
+C:\Projects\WC360\obj\Debug\netcoreapp2.0\WC360.AssemblyInfoInputs.cache
+C:\Projects\WC360\obj\Debug\netcoreapp2.0\WC360.AssemblyInfo.cs
+C:\Projects\WC360\obj\Debug\netcoreapp2.0\WC360.dll
+C:\Projects\WC360\obj\Debug\netcoreapp2.0\WC360.pdb
+C:\Projects\WC360\obj\Debug\netcoreapp2.0\WC360.csprojResolveAssemblyReference.cache
