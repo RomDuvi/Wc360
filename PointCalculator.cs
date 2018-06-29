@@ -171,11 +171,11 @@ public class PointCalculator{
 
     private void CalculateQualifTeamPoints(Player player){
         var fixtures = FixtureRepository.GetFixtureByRoundId(1);
-        if(fixtures.Select(x=>!x.Ended).Count() > 0) return;
+        if(fixtures.Where(x=>!x.Ended).Count() > 0) return;
 
         var qualifiedTeams = TeamRepository.GetAllTeams().Where(x=>x.CurrentRoundId == 1);
         var betTeams = BetReposiory.GetQualifTeams(player.Id, false);
-        if(betTeams.Count() != 16)return;
+        if(betTeams.Count() != 16)return; //Reset to 16
         BetReposiory.CheckQualifTeams(player.Id);
 
         var crossTeams = qualifiedTeams.Where(x => betTeams.Contains(x.Id));
