@@ -173,7 +173,7 @@ public class PointCalculator{
         var fixtures = FixtureRepository.GetFixtureByRoundId(1);
         if(fixtures.Where(x=>!x.Ended).Count() > 0) return;
 
-        var qualifiedTeams = TeamRepository.GetAllTeams().Where(x=>x.CurrentRoundId == 1);
+        var qualifiedTeams = TeamRepository.GetAllTeams().Where(x=>x.CurrentRoundId == 2);
         var betTeams = BetReposiory.GetQualifTeams(player.Id, false);
         if(betTeams.Count() != 16)return; //Reset to 16
         BetReposiory.CheckQualifTeams(player.Id);
@@ -182,12 +182,12 @@ public class PointCalculator{
         var c = crossTeams.Count();
         
         if(c<2){
-            PlayerRepository.SetScore(10, player.Id);
+            PlayerRepository.SetScore(-10, player.Id);
             return;
         }
 
         if(c<5){
-            PlayerRepository.SetScore(5, player.Id);
+            PlayerRepository.SetScore(-5, player.Id);
             return;
         }
 
