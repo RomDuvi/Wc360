@@ -13,7 +13,7 @@ public class Team
 
     public bool Eleminated{ get; set; }
 
-    public int RoundId { get; set; }
+    public int CurrentRoundId { get; set; }
 
     public int Ranking { get; set; }
 }

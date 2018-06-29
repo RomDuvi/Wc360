@@ -42,7 +42,7 @@ namespace WC360
             services.AddSingleton<IHostedService, Wc360Module>();
             services.AddSingleton<PointCalculator,PointCalculator>();
 
-            services.Configure<Wc360Options>(options => options.Delay = TimeSpan.FromMinutes(5));
+            services.Configure<Wc360Options>(options => options.Delay = TimeSpan.FromMinutes(2));
 
             services.AddCors(options =>
             {

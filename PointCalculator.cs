@@ -46,13 +46,13 @@ public class PointCalculator{
     }
 
     private void CalculateRoundBetPoints(Bet bet, Player player){
-        var team = TeamRepository.GetTeamById(bet.RoundTeamRoundId.Value);
+        var team = TeamRepository.GetTeamById(bet.RoundTeamId.Value);
         double points = 0;
-        if(!team.Eleminated)return;
+        if(!team.Eleminated || bet.Checked)return;
 
-        if(team.Eleminated && team.RoundId == bet.RoundTeamRoundId){
+        if(team.Eleminated && team.CurrentRoundId == bet.RoundTeamRoundId){
             points = 10 * (1 + (team.Ranking/25));
-        }else if(team.Eleminated && team.RoundId != bet.RoundTeamRoundId){
+        }else if(team.Eleminated && team.CurrentRoundId != bet.RoundTeamRoundId){
             points = -5 * (1 + (team.Ranking/25));
         }
         int.TryParse(Math.Ceiling(points).ToString(),out var intPoints);
@@ -66,13 +66,13 @@ public class PointCalculator{
         var points = 0;
         var betRound = GetBetRoundByDate(bet.Date);
         var team = TeamRepository.GetTeamById(bet.WinnerTeamId.Value);
-        if(team.RoundId < 4 && !team.Eleminated) return;
+        if((team.CurrentRoundId < 4 && !team.Eleminated) || bet.Checked) return;
         
-        if(team.RoundId == 1){
+        if(team.CurrentRoundId == 1){
             points = -10;
         }
 
-        if(team.RoundId == 2){
+        if(team.CurrentRoundId == 2){
             switch(betRound){
                 case 1:
                     points = -3;
@@ -83,7 +83,7 @@ public class PointCalculator{
             }
         }
 
-        if(team.RoundId == 3){
+        if(team.CurrentRoundId == 3){
             switch(betRound){
                 case 1:
                     points = 0;
@@ -97,7 +97,7 @@ public class PointCalculator{
             }
         }
 
-        if(team.RoundId == 5){
+        if(team.CurrentRoundId == 5){
             var fixture = FixtureRepository.GetFixtureByRoundId(5).First();
             var won = fixture.WinningTeamId == bet.WinnerTeamId;
             if(!fixture.Ended) return;
@@ -126,7 +126,7 @@ public class PointCalculator{
             }
         }
 
-        if(team.RoundId == 6){
+        if(team.CurrentRoundId == 6){
             var fixture = FixtureRepository.GetFixtureByRoundId(6).First();
             var won = fixture.WinningTeamId == bet.WinnerTeamId;
             if(!fixture.Ended) return;
@@ -161,19 +161,19 @@ public class PointCalculator{
 
     private int GetBetRoundByDate(DateTime date){
         var rounds = RoundRepository.GetAllRounds().ToList();
-        var roundId = 1;
+        var CurrentRoundId = 1;
         foreach(var round in rounds){
-            if(date < round.StartDate) return roundId;
-            roundId++;
+            if(date < round.StartDate) return CurrentRoundId;
+            CurrentRoundId++;
         }
-        return roundId;
+        return CurrentRoundId;
     }
 
     private void CalculateQualifTeamPoints(Player player){
         var fixtures = FixtureRepository.GetFixtureByRoundId(1);
         if(fixtures.Select(x=>!x.Ended).Count() > 0) return;
 
-        var qualifiedTeams = TeamRepository.GetAllTeams().Where(x=>x.RoundId == 1);
+        var qualifiedTeams = TeamRepository.GetAllTeams().Where(x=>x.CurrentRoundId == 1);
         var betTeams = BetReposiory.GetQualifTeams(player.Id, false);
         if(betTeams.Count() != 16)return;
         BetReposiory.CheckQualifTeams(player.Id);
